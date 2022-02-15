@@ -35,10 +35,10 @@ namespace WindowsFormsApp2
             // 
             // btnCadastrar
             // 
-            this.btnCadastrar.Location = new System.Drawing.Point(128, 59);
-            this.btnCadastrar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCadastrar.Location = new System.Drawing.Point(139, 150);
+            this.btnCadastrar.Margin = new System.Windows.Forms.Padding(2);
             this.btnCadastrar.Name = "btnCadastrar";
-            this.btnCadastrar.Size = new System.Drawing.Size(103, 41);
+            this.btnCadastrar.Size = new System.Drawing.Size(100, 41);
             this.btnCadastrar.TabIndex = 0;
             this.btnCadastrar.Text = "Cadastrar";
             this.btnCadastrar.UseVisualStyleBackColor = true;
@@ -46,8 +46,8 @@ namespace WindowsFormsApp2
             // 
             // btnProva
             // 
-            this.btnProva.Location = new System.Drawing.Point(296, 59);
-            this.btnProva.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnProva.Location = new System.Drawing.Point(307, 150);
+            this.btnProva.Margin = new System.Windows.Forms.Padding(2);
             this.btnProva.Name = "btnProva";
             this.btnProva.Size = new System.Drawing.Size(100, 41);
             this.btnProva.TabIndex = 1;
@@ -62,7 +62,7 @@ namespace WindowsFormsApp2
             this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.btnProva);
             this.Controls.Add(this.btnCadastrar);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Inicio";
             this.Text = "Inicio";
             this.ResumeLayout(false);

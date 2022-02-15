@@ -19,17 +19,35 @@ namespace WindowsFormsApp2
         public Prova()
         {
             InitializeComponent();
+            LogicaProva.GeraAleatorio(LogicaProva.CountSql());
             btnFinalizar.Visible = false;
+            btnVoltar.Visible = false;
             lblEnunciado.Multiline = true;
             lblEnunciado.ScrollBars = ScrollBars.Both;
-
-            mudaQuestao();
+            MudaQuestao();
+        }
+        private void BtnVoltar_Click(object sender, EventArgs e)
+        {
+            btnProximo.Visible=true;
+            btnFinalizar.Visible=false;
+            i--;
+            if (i == 0)
+            {
+                btnVoltar.Visible=false;
+            }
+            j = 0;
+            MudaQuestao();
+            VoltaAlternativa();
         }
 
-        private void btnProximo_Click(object sender, EventArgs e)
+        private void BtnProximo_Click(object sender, EventArgs e)
         {
-            gabarito[i] = verificaSelecao();
-            if (i>=8)
+            gabarito[i] = VerificaSelecao();
+            if (i>=0)
+            {
+                btnVoltar.Visible=true;
+            }
+            if (i>=(LogicaProva.qtdQuestoes-2))
             {
                 btnProximo.Visible = false;
                 btnFinalizar.Visible = true;
@@ -37,12 +55,22 @@ namespace WindowsFormsApp2
             j = 0;
             
             i++;
-            mudaQuestao();
+            MudaQuestao();
+            VoltaAlternativa();
         }
-        private void mudaQuestao()
+        private void BtnFinalizar_Click_1(object sender, EventArgs e)
+        {
+            gabarito[i] = VerificaSelecao();
+            this.Hide();
+            Resultado resultado = new Resultado();
+            resultado.Show();
+        }
+        private void MudaQuestao()
         {
 
-            LogicaProva.GeraQuestoes();
+            LogicaProva.GeraQuestoes(i);
+            //MessageBox.Show(LogicaProva.numAleatórios[i].ToString());
+            rButtonA.Checked = false;
  
             lblNum.Text = (i + 1).ToString();
             lblEnunciado.Text = LogicaProva.questoes[i].enunciado;
@@ -52,13 +80,15 @@ namespace WindowsFormsApp2
             rButtonD.Text = LogicaProva.questoes[i].alternativas[j++];
             rButtonE.Text = LogicaProva.questoes[i].alternativas[j++];
 
-            escondeAlternativa(rButtonA);
-            escondeAlternativa(rButtonB);
-            escondeAlternativa(rButtonC);
-            escondeAlternativa(rButtonD);
-            escondeAlternativa(rButtonE);
+           
+            EscondeAlternativa(rButtonA);
+            EscondeAlternativa(rButtonB);
+            EscondeAlternativa(rButtonC);
+            EscondeAlternativa(rButtonD);
+            EscondeAlternativa(rButtonE);
+            VoltaAlternativa();
         }
-        private string verificaSelecao()
+        private string VerificaSelecao()
         {
             string opcao;
             if (rButtonA.Checked)
@@ -94,15 +124,8 @@ namespace WindowsFormsApp2
             return opcao;
         }
 
-        private void btnFinalizar_Click_1(object sender, EventArgs e)
-        {
-            gabarito[i] = verificaSelecao();
-            this.Hide();
-            Resultado resultado = new Resultado();
-            resultado.Show();
-        }
 
-        private void escondeAlternativa(RadioButton radioButton)
+        private void EscondeAlternativa(RadioButton radioButton)
         {
             if (radioButton.Text.Equals(""))
             {
@@ -116,6 +139,31 @@ namespace WindowsFormsApp2
         {
             return gabarito;
         }
+
+        public void VoltaAlternativa()
+        {
+            if (gabarito[i]=="A")
+            {
+                rButtonA.Checked = true;
+            }
+            else if (gabarito[i] == "B")
+            {
+                rButtonB.Checked = true;
+            }
+            else if (gabarito[i] == "C")
+            {
+                rButtonC.Checked = true;
+            }
+            else if (gabarito[i] == "D")
+            {
+                rButtonD.Checked = true;
+            }
+            else if (gabarito[i] == "E")
+            {
+                rButtonE.Checked = true;
+            }
+        }
+
 
     }
 }

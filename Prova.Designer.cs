@@ -37,6 +37,7 @@
             this.btnProximo = new System.Windows.Forms.Button();
             this.btnFinalizar = new System.Windows.Forms.Button();
             this.lblEnunciado = new System.Windows.Forms.TextBox();
+            this.btnVoltar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rButtonA
@@ -49,6 +50,7 @@
             this.rButtonA.TabStop = true;
             this.rButtonA.Text = "Alternativa A";
             this.rButtonA.UseVisualStyleBackColor = true;
+            this.rButtonA.Checked = true;
             // 
             // rButtonB
             // 
@@ -113,7 +115,7 @@
             this.btnProximo.TabIndex = 7;
             this.btnProximo.Text = "Próximo";
             this.btnProximo.UseVisualStyleBackColor = true;
-            this.btnProximo.Click += new System.EventHandler(this.btnProximo_Click);
+            this.btnProximo.Click += new System.EventHandler(this.BtnProximo_Click);
             // 
             // btnFinalizar
             // 
@@ -124,7 +126,7 @@
             this.btnFinalizar.TabIndex = 8;
             this.btnFinalizar.Text = "Finalizar";
             this.btnFinalizar.UseVisualStyleBackColor = true;
-            this.btnFinalizar.Click += new System.EventHandler(this.btnFinalizar_Click_1);
+            this.btnFinalizar.Click += new System.EventHandler(this.BtnFinalizar_Click_1);
             // 
             // lblEnunciado
             // 
@@ -136,11 +138,23 @@
             this.lblEnunciado.Size = new System.Drawing.Size(738, 105);
             this.lblEnunciado.TabIndex = 10;
             // 
+            // btnVoltar
+            // 
+            this.btnVoltar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVoltar.Location = new System.Drawing.Point(545, 400);
+            this.btnVoltar.Name = "btnVoltar";
+            this.btnVoltar.Size = new System.Drawing.Size(75, 23);
+            this.btnVoltar.TabIndex = 11;
+            this.btnVoltar.Text = "Voltar";
+            this.btnVoltar.UseVisualStyleBackColor = true;
+            this.btnVoltar.Click += new System.EventHandler(this.BtnVoltar_Click);
+            // 
             // Prova
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 464);
+            this.Controls.Add(this.btnVoltar);
             this.Controls.Add(this.lblEnunciado);
             this.Controls.Add(this.btnFinalizar);
             this.Controls.Add(this.btnProximo);
@@ -168,6 +182,7 @@
         private System.Windows.Forms.Button btnProximo;
         private System.Windows.Forms.Button btnFinalizar;
         private System.Windows.Forms.TextBox lblEnunciado;
+        private System.Windows.Forms.Button btnVoltar;
     }
 }
 

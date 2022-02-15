@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,13 +14,14 @@ namespace WindowsFormsApp2
     {
         private static int acertos = 0;
         public static int qtdQuestoes = 10;
+        public static int[] numAleatórios = new int[qtdQuestoes];
 
         public static List<Questao> questoes = new List<Questao>();
-        public static int[] IdQuestoes = new int[10];
-        public static SqlConnection conexao = new SqlConnection("Server = CCH02LABF29\\SQLEXPRESS; Database = PROVA; Trusted_Connection = True;");
+        public static SqlConnection conexao = new SqlConnection("Server = SERVIDOR\\SQLEXPRESS01; Database = PROVA; Trusted_Connection = True;");
 
-        public static void buscaEnunciado(int numID)
+        public static void BuscaEnunciado(int numID)
         {
+
             string stringEnunciado = "SELECT ID_QUESTAO, Enunciado, AlternativaA, AlternativaB, AlternativaC, " +
                 "AlternativaD, AlternativaE, Gabarito FROM QUESTOES WHERE ID_QUESTAO = @ID";
 
@@ -48,29 +50,42 @@ namespace WindowsFormsApp2
 
         public static int CountSql()
         {
-            conexao.Open();
-            string stringCount = "SELECT COUNT(ID_QUESTAO)FROM QUESTOES";
-            SqlCommand lerCount = new SqlCommand(stringCount, conexao);
-            var dataReaderCount = lerCount.ExecuteScalar();
-            int qtdQuestoes = Convert.ToInt32(dataReaderCount);
-            conexao.Close();
-            return qtdQuestoes;
-        }
-        
+            try
+            {
+                conexao.Open();
+                string stringCount = "SELECT COUNT(ID_QUESTAO)FROM QUESTOES";
+                SqlCommand lerCount = new SqlCommand(stringCount, conexao);
+                var dataReaderCount = lerCount.ExecuteScalar();
+                int qtdQuestoes = Convert.ToInt32(dataReaderCount);
+                conexao.Close();
+                return qtdQuestoes;
 
-        public static int getAcertos()
+            }
+            catch (SqlException conect)
+            {
+                
+                MessageBox.Show("Erro ao conectar com o banco de dados","Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Inicio inicio = new Inicio();
+                inicio.Show();
+                //goto invoke(Inicio.);
+            }
+            return 0;
+        }
+
+
+        public static int GetAcertos()
         {
             return acertos;
         }
 
-        public static void acertou()
+        public static void Acertou()
         {
             acertos++;
         }
 
         public static string[] GetGabarito()
         {
-            
+
             string[] corretas = new string[qtdQuestoes];
             for (int i = 0; i < qtdQuestoes; i++)
             {
@@ -80,17 +95,36 @@ namespace WindowsFormsApp2
             return corretas;
         }
 
-        public static int GeraAleatorio(int numMax)
+        public static void GeraAleatorio(int numMax)
         {
             Random rnd = new Random();
-            int aleatorio = rnd.Next(numMax);
-            
-            return aleatorio;
+
+            for (int i = 0; i < qtdQuestoes; i++)
+            {
+                int aleatorio = rnd.Next(numMax);
+                if (!numAleatórios.Contains(aleatorio) && (aleatorio != 0))
+                {
+                    numAleatórios[i] = aleatorio;
+                }
+                else
+                {
+                    i--;
+                }
+
+            }
         }
 
-        public static List<Questao> GeraQuestoes()
+        public static List<Questao> GeraQuestoes(int i)
         {
-            buscaEnunciado(GeraAleatorio(CountSql()));
+            BuscaEnunciado(numAleatórios[i]);
+
+            /*if(numQuestoes != 0)
+            {
+            }
+            else
+            {
+                Process.GetCurrentProcess().Kill();
+            }*/
             return questoes;
         }
 

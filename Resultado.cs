@@ -16,31 +16,10 @@ namespace WindowsFormsApp2
         string[] gabaritoOficial = new string[LogicaProva.qtdQuestoes];
         public Resultado()
         {
-            InitializeComponent();         
-
+            InitializeComponent();
             gabaritoProva = Prova.GetGabarito();
-            gabaritoOficial = LogicaProva.GetGabarito();
-
             SetLabel(groupBox1, gabaritoProva);
-            SetLabel(groupBox2, gabaritoOficial);
 
-            Correcao(lbl01Resp, lbl01Gab);
-            Correcao(lbl02Resp, lbl02Gab);
-            Correcao(lbl03Resp, lbl03Gab);
-            Correcao(lbl04Resp, lbl04Gab);
-            Correcao(lbl05Resp, lbl05Gab);
-            Correcao(lbl06Resp, lbl06Gab);
-            Correcao(lbl07Resp, lbl07Gab);
-            Correcao(lbl08Resp, lbl08Gab);
-            Correcao(lbl09Resp, lbl09Gab);
-            Correcao(lbl10Resp, lbl10Gab);
-
-            
-            lblNotaNum.Text = String.Format("{0:0.0}", LogicaProva.getAcertos());
-            if (LogicaProva.getAcertos().Equals(LogicaProva.qtdQuestoes))
-            {
-                MessageBox.Show("Parabéns você acertou toda a prova");
-            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -58,7 +37,7 @@ namespace WindowsFormsApp2
             if (label.Text == label2.Text)
             {
                 label.ForeColor = Color.Green;
-                LogicaProva.acertou();
+                LogicaProva.Acertou();
             }
             else
             {
@@ -74,6 +53,47 @@ namespace WindowsFormsApp2
                 ctrl.Text = newUnit[i].ToString();
                 i++;
             }
+        }
+
+        private void btnConfirmar_Click(object sender, EventArgs e)
+        {
+            btnConfirmar.Visible = false;
+            btnVoltar.Visible = false;
+
+            lblNotaText.Visible = true;
+            lblNotaNum.Visible = true;
+            lblGabarito.Visible = true;
+            groupBox2.Visible = true;
+
+            gabaritoOficial = LogicaProva.GetGabarito();
+
+            SetLabel(groupBox2, gabaritoOficial);
+
+            Correcao(lbl01Resp, lbl01Gab);
+            Correcao(lbl02Resp, lbl02Gab);
+            Correcao(lbl03Resp, lbl03Gab);
+            Correcao(lbl04Resp, lbl04Gab);
+            Correcao(lbl05Resp, lbl05Gab);
+            Correcao(lbl06Resp, lbl06Gab);
+            Correcao(lbl07Resp, lbl07Gab);
+            Correcao(lbl08Resp, lbl08Gab);
+            Correcao(lbl09Resp, lbl09Gab);
+            Correcao(lbl10Resp, lbl10Gab);
+
+            
+            lblNotaNum.Text = String.Format("{0:0.0}", LogicaProva.GetAcertos());
+            if (LogicaProva.GetAcertos().Equals(LogicaProva.qtdQuestoes))
+            {
+                MessageBox.Show("Parabéns você acertou toda a prova");
+            }
+
+        }
+
+        private void btnVoltar_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Prova prova = new Prova();
+            prova.Show();
         }
     }
 }
